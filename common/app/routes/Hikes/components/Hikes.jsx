@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { Row } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 import PureComponent from 'react-pure-render/component';
 import { createSelector } from 'reselect';
 // import debug from 'debug';
@@ -15,9 +15,9 @@ import contain from '../../../utils/professor-x';
 // const log = debug('fcc:hikes');
 
 const mapStateToProps = createSelector(
-  state => state.hikesApp.hikes.entities,
-  state => state.hikesApp.hikes.results,
-  (hikesMap, hikesByDashedName)=> {
+  state => state.entities.hike,
+  state => state.hikesApp.hikes,
+  (hikesMap, hikesByDashedName) => {
     if (!hikesMap || !hikesByDashedName) {
       return { hikes: [] };
     }
@@ -62,14 +62,18 @@ export class Hikes extends PureComponent {
     const preventOverflow = { overflow: 'hidden' };
     return (
       <div>
-        <Row style={ preventOverflow }>
-          {
-            // render sub-route
-            this.props.children ||
-            // if no sub-route render hikes map
-            this.renderMap(hikes)
-          }
-        </Row>
+        <Col
+          md={ 8 }
+          mdOffset={ 2 }>
+          <Row style={ preventOverflow }>
+            {
+              // render sub-route
+              this.props.children ||
+              // if no sub-route render hikes map
+              this.renderMap(hikes)
+            }
+          </Row>
+        </Col>
       </div>
     );
   }
