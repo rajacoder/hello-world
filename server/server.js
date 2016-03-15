@@ -3,6 +3,7 @@ var pmx = require('pmx');
 pmx.init();
 
 var _ = require('lodash'),
+    Rx = require('rx'),
     uuid = require('node-uuid'),
     assign = require('lodash').assign,
     loopback = require('loopback'),
@@ -17,6 +18,7 @@ var getUsernameFromProvider = require('./utils/auth').getUsernameFromProvider;
 var generateKey =
   require('loopback-component-passport/lib/models/utils').generateKey;
 
+Rx.config.longStackSupport = process.env.NODE_DEBUG !== 'production';
 var isBeta = !!process.env.BETA;
 var app = loopback();
 
